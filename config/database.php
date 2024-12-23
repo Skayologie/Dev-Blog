@@ -1,5 +1,12 @@
 <?php
+ use Dotenv\Dotenv;
 
+ require '../vendor/autoload.php'; // Composer autoloader 
+ //make sure to give the right path to the autoloader file.
+
+ // Load .env file from the root of your project
+ $dotenv = Dotenv::createImmutable(dirname(__DIR__));
+ $dotenv->load();
 /**
  * Connect to a MySQL database using the mysqli extension.
  *
@@ -9,12 +16,8 @@
  * @return A MySQLi connection object.
  */
 function connect_db() {
-    $host = 'localhost';
-    $username = 'root';
-    $password = '';
-    $database = 'devblog_db';
-    
-    $mysqli = mysqli_connect($host, $username, $password, $database);
+
+    $mysqli = mysqli_connect($_ENV['HOST'], $_ENV['USERNAME'], $_ENV['PASSWORD'], $_ENV['DATABASE']);
     
     if (mysqli_connect_errno()) {
         error_log("Connection failed: " . mysqli_connect_error());

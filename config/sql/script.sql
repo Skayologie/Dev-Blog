@@ -1,6 +1,5 @@
 -- Active: 1676217837382@@127.0.0.1@3306@devblog_db
 -- Create the database
-DROP DATABASE IF EXISTS devblog_db;
 CREATE DATABASE devblog_db;
 
 -- Connect to the database
@@ -71,6 +70,7 @@ CREATE TABLE article_tags (
 
 -- Insert Categories
 -- Insert Categories
+use devblog_db
 INSERT INTO categories (id, name) VALUES
 (1, 'Web Development'),
 (2, 'Mobile Development'),
