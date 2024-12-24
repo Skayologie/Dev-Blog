@@ -5,12 +5,12 @@ require_once dirname(__DIR__) . '/includes/crud_functions.php';
 
 $mysqli = connect_db();
 // $articles = get_all_articles($mysqli);
-// $category_stats = get_category_stats($mysqli);
-// $top_users = get_top_users($mysqli);
+$category_stats = get_category_stats($mysqli);
+$top_users = get_top_users($mysqli);
 // $top_articles = get_top_articles($mysqli);
 
 // Prepare data for the chart
-$categories = [];
+$categories = $category_stats;
 $counts = [];
 // Define colors for the chart
 $colors = [
@@ -23,11 +23,6 @@ $colors = [
     'rgb(90, 92, 105)',     // dark
     'rgb(244, 246, 249)'    // light
 ];
-
-foreach ($category_stats as $stat) {
-    $categories[] = $stat['category_name'];
-    $counts[] = $stat['article_count'];
-}
 
 ?>
 <!DOCTYPE html>

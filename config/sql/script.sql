@@ -107,7 +107,7 @@ INSERT INTO articles (
     'images/react-hooks.jpg',
     'published',
     NULL,
-    1  -- author_id for john_doe
+    5  -- author_id for john_doe
 ),
 (
     'Docker Container Basics',
@@ -119,7 +119,7 @@ INSERT INTO articles (
     'images/docker-basics.jpg',
     'published',
     NULL,
-    3  -- author_id for mike_wilson
+    5  -- author_id for mike_wilson
 );
 
 -- Insert Article Tags (after articles are inserted)
