@@ -120,6 +120,17 @@ INSERT INTO articles (
     'published',
     NULL,
     5  -- author_id for mike_wilson
+),(
+    'Docker Container Basics',
+    'dockerdcontainerd-basics',
+    'Docker containers provide a way to package applications with all their dependencies...',
+    'Understanding Docker containers and their benefits',
+    'Learn Docker container basics and best practices',
+    3, -- category_id for DevOps
+    'images/docker-basics.jpg',
+    'published',
+    NULL,
+    6  -- author_id for mike_wilson
 );
 
 -- Insert Article Tags (after articles are inserted)

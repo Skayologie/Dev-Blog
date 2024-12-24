@@ -4,10 +4,10 @@ require_once dirname(__DIR__) . '/config/functions.php';
 require_once dirname(__DIR__) . '/includes/crud_functions.php';
 
 $mysqli = connect_db();
-// $articles = get_all_articles($mysqli);
+$articles = get_all_articles($mysqli);
 $category_stats = get_category_stats($mysqli);
 $top_users = get_top_users($mysqli);
-// $top_articles = get_top_articles($mysqli);
+$top_articles = get_top_articles($mysqli);
 
 // Prepare data for the chart
 $categories = $category_stats;
@@ -181,7 +181,7 @@ $colors = [
                                      class="rounded-circle" 
                                      style="width: 40px; height: 40px; object-fit: cover;"
                                      alt="<?= htmlspecialchars($user['username']) ?>">
-                            <?php else: ?>
+                            <?php else: ?> 
                                 <i class="fas fa-user"></i>
                             <?php endif; ?>
                         </div>
@@ -190,9 +190,9 @@ $colors = [
                         <div class="small text-gray-500">Author #<?= $index + 1 ?></div>
                         <div class="font-weight-bold"><?= htmlspecialchars($user['username']) ?></div>
                         <div class="text-gray-800">
-                            <?= number_format($user['article_count']) ?> articles
+                            <?= $user['article_count']?> articles
                             <span class="mx-1">•</span>
-                            <?= number_format((int)$user['total_views']) ?> total views
+                            <?= number_format((int)$user['viewsAll']) ?> total views
                         </div>
                     </div>
                     <div class="ml-2">
@@ -236,7 +236,7 @@ $colors = [
                     <div class="flex-grow-1">
                         <div class="small text-gray-500">
                             Published <?= date('M d, Y', strtotime($article['created_at'])) ?>
-                            by <?= htmlspecialchars($article['author_name']) ?>
+                            by <?= htmlspecialchars($article['username']) ?>
                         </div>
                         <div class="font-weight-bold"><?= htmlspecialchars($article['title']) ?></div>
                         <div class="text-gray-800">
