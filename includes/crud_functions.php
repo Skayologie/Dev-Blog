@@ -11,14 +11,28 @@ function get_all_articles($mysqli){
 }
 
 function get_category_stats($mysqli){
-    $sql = "SELECT * , COUNT(*) AS article_count FROM articles JOIN categories ON categories.id = articles.category_id GROUP BY category_id";
+    $sql = "SELECT 
+    categories.id , 
+    name, 
+    COUNT(articles.id) AS article_count 
+    FROM articles 
+    JOIN categories ON categories.id = articles.category_id 
+    GROUP BY categories.id";
     $result = $mysqli->query($sql);
     $resultQuery = $result->fetch_all(MYSQLI_ASSOC);
     return ($resultQuery);
 }
 
 function get_top_users($mysqli){
-    $sql = "SELECT * , COUNT(*) AS article_count , SUM(views) AS viewsAll FROM articles JOIN users ON users.id = articles.author_id GROUP BY author_id ORDER BY articles.views DESC LIMIT 3";
+    $sql = "SELECT 
+    users.id,profile_picture_url, username, 
+    COUNT(articles.id) AS article_count, 
+    SUM(articles.views) AS viewsAll 
+    FROM articles 
+   JOIN users ON users.id = articles.author_id 
+   GROUP BY users.id 
+   ORDER BY viewsAll DESC 
+   LIMIT 3";
     $result = $mysqli->query($sql);
     $resultQuery = $result->fetch_all(MYSQLI_ASSOC);
     return ($resultQuery);
