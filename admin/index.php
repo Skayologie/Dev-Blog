@@ -9,8 +9,10 @@ $category_stats = get_category_stats($mysqli);
 $top_users = get_top_users($mysqli);
 $top_articles = get_top_articles($mysqli);
 
+
 // Prepare data for the chart
 $categories = $category_stats;
+$categoriesNames = [];
 $counts = [];
 // Define colors for the chart
 $colors = [
@@ -23,6 +25,12 @@ $colors = [
     'rgb(90, 92, 105)',     // dark
     'rgb(244, 246, 249)'    // light
 ];
+foreach ($categories as $stat) {
+    $categoriesNames[] = $stat['name'];
+    $counts[] = $stat['article_count'];
+}
+
+
 
 ?>
 <!DOCTYPE html>
@@ -286,10 +294,10 @@ $colors = [
                                         <canvas id="categoryPieChart"></canvas>
                                     </div>
                                     <div class="mt-4 text-center small">
-                                        <?php foreach ($category_stats as $index => $stat): ?>
+                                        <?php foreach ($categories as $index => $stat): ?>
                                             <span class="mr-2">
                                                 <i class="fas fa-circle" style="color: <?= $colors[$index % count($colors)] ?>"></i>
-                                                <?= htmlspecialchars($stat['category_name']) ?>
+                                                <?= htmlspecialchars($stat['name']) ?>
                                                 (<?= $stat['article_count'] ?>)
                                             </span>
                                         <?php endforeach; ?>
@@ -338,12 +346,12 @@ $colors = [
                                                     style="width: 50px; height: 50px; object-fit: cover;">
                                                 <?= htmlspecialchars($article['title']) ?>
                                             </td>
-                                            <td><?= htmlspecialchars($article['author_name']) ?></td>
-                                            <td><?= htmlspecialchars($article['category_name']) ?></td>
+                                            <td><?= htmlspecialchars($article['username']) ?></td>
+                                            <td><?= htmlspecialchars($article['name']) ?></td>
                                             <td>
                                                 <?php
-                                                if ($article['tags']) {
-                                                    $tags = explode(',', $article['tags']);
+                                                if ($article['tag_name']) {
+                                                    $tags = explode(',', $article['tag_name']);
                                                     foreach($tags as $tag) {
                                                         echo '<span class="badge badge-primary mr-1">' . htmlspecialchars($tag) . '</span>';
                                                     }
